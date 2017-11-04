@@ -1,14 +1,5 @@
 package com.dataSource;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import com.util.PropertiesUtil;
 
 public class JndiDataSource {

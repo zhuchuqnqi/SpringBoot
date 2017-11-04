@@ -19,7 +19,7 @@ public class StartBatch {
 				t.start();
 			}
 		} else {
-			System.out.println("无数据库连接！");
+			System.out.println("无数据库连接!!！");
 		}
 	}
 	

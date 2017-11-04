@@ -14,7 +14,6 @@ public class GetDataThread implements Runnable{
 		this.connection = connection;
 	}
 
-	@Override
 	public void run() {
 		try {
 			connection.createStatement();
