@@ -40,8 +40,7 @@ public class RedisUtil {
 			// shardedJedis = shardedJedisPool.getResource();
 			// shardedJedis.set(key, value);
 
-			// jedisCluster.set(key, value);
-			jedisCluster.setex(key, 180, value); //设置有效时间,单位:秒
+			jedisCluster.set(key, value);
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();

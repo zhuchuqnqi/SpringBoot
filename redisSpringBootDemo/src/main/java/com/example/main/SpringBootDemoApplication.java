@@ -15,5 +15,4 @@ public class SpringBootDemoApplication {
 				SpringBootDemoApplication.class);
 		app.run(args);
 	}
-
 }
