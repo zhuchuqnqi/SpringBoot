@@ -32,30 +32,24 @@ public class RedisConfig {
 
 		return jedisPoolConfig;
 	}
-	
+
 	@Bean
 	public JedisCluster jedisCluster(
 			@Value("${JedisCluster.notes}") String jedisClusterNotes,
-
 			JedisPoolConfig jedisPoolConfig) {
 
+		String[] serverArray = jedisClusterNotes.split(",");
 		Set<HostAndPort> nodes = new HashSet<HostAndPort>();
-		if (jedisClusterNotes != null) {
-			String[] notesArr = jedisClusterNotes.split("\\|");
 
-			for (String note : notesArr) {
-				String[] noteArr = note.split(":");
-				HostAndPort hostAndPort = new HostAndPort(noteArr[0],
-						Integer.parseInt(noteArr[1]));
-				nodes.add(hostAndPort);
-			}
-
+		for (String ipPort : serverArray) {
+			String[] ipPortPair = ipPort.split(":");
+			nodes.add(new HostAndPort(ipPortPair[0].trim(), Integer
+					.valueOf(ipPortPair[1].trim())));
 		}
 
 		JedisCluster jedisCluster = new JedisCluster(nodes, jedisPoolConfig);
 		return jedisCluster;
 	}
-	
 
 	@Bean
 	public JedisShardInfo jedisShardInfo(
@@ -63,7 +57,6 @@ public class RedisConfig {
 			@Value("${spring.redis.port}") int port) {
 		return new JedisShardInfo(host, port);
 	}
-
 
 	@Bean
 	public ShardedJedisPool shardedJedisPool(JedisPoolConfig jedisPoolConfig,
