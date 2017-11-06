@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.constant.Constatnt;
+import com.example.constant.Constant;
 import com.example.mapper.MarchantMapper;
 import com.example.model.MarchantInfo;
 import com.example.util.RedisUtil;
@@ -28,7 +28,7 @@ public class MarchantDao {
 	 */
 	public boolean addMarchantInfo(MarchantInfo marchantInfo) {
 		if (marchantMapper.insert(marchantInfo) > 0) {
-			redisUtil.set(Constatnt.MARCH_LIMITED_PREFIX,
+			redisUtil.set(Constant.MARCH_LIMITED_PREFIX,
 					marchantInfo.getMarchCode(),
 					String.valueOf(marchantInfo.getDaySumLimited()));
 
@@ -47,7 +47,7 @@ public class MarchantDao {
 	public boolean delMarchantInfo(String marchCode) {
 
 		if (marchantMapper.delMarchantInfo(marchCode) > 0) {
-			redisUtil.deleteWithPrefix(Constatnt.MARCH_LIMITED_PREFIX,
+			redisUtil.deleteWithPrefix(Constant.MARCH_LIMITED_PREFIX,
 					marchCode);
 
 			return true;
@@ -63,7 +63,7 @@ public class MarchantDao {
 	 */
 	public boolean updateMarchantInfo(MarchantInfo marchantInfo) {
 		if (marchantMapper.updateByPrimaryKey(marchantInfo) > 0) {
-			redisUtil.set(Constatnt.MARCH_LIMITED_PREFIX,
+			redisUtil.set(Constant.MARCH_LIMITED_PREFIX,
 					marchantInfo.getMarchCode(),
 					String.valueOf(marchantInfo.getDaySumLimited()));
 			return true;

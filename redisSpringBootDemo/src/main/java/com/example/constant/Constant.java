@@ -1,6 +1,9 @@
 package com.example.constant;
 
-public class Constatnt {
+public class Constant {
+	
+	private Constant(){}
+	
 	/**
 	 * 商户 日限额前缀
 	 */
