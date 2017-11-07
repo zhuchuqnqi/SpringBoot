@@ -49,6 +49,11 @@ public class PayService {
 			if (payInfo.getPayAmount().compareTo(dayMarchLimited) > 0) {
 				return false;
 			}
+			
+			// 将本次交易金额缓存到Redis
+			redisUtil.set(Constant.MARCH_DAY_SUM_LIMITED_PREFIX,
+					payInfo.getTranDate() + ":" + payInfo.getMarchCode(),
+					String.valueOf(payInfo.getPayAmount()));
 		}
 
 		return true;

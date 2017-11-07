@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.ShardedJedisPool;
@@ -17,6 +19,7 @@ import redis.clients.jedis.ShardedJedisPool;
  * 
  */
 @Component
+@Transactional(readOnly = true)
 public class RedisUtil {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedisUtil.class);
@@ -29,6 +32,7 @@ public class RedisUtil {
 	@Resource
 	JedisCluster jedisCluster;
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public boolean set(String key, String value) {
 		if (value == null) {
 			return false;
@@ -76,6 +80,7 @@ public class RedisUtil {
 	 * @param key    缓存key
 	 * @param value  缓存value
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void set(String prefix, String key, String value) {
 	 
 	    if(StringUtils.isBlank(prefix)) throw new IllegalArgumentException("prefix must not null!");
@@ -92,6 +97,7 @@ public class RedisUtil {
 	 * @param value
 	 * @param expireTime 过期时间
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void setWithExpireTime(String prefix, String key, String value, int expireTime) {
 	 
 	    if(StringUtils.isBlank(prefix)) throw new IllegalArgumentException("prefix must not null!");
@@ -121,6 +127,7 @@ public class RedisUtil {
 	 * @param prefix
 	 * @param key
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void deleteWithPrefix(String prefix, String key) {
 	    if(StringUtils.isBlank(prefix)) throw new IllegalArgumentException("prefix must not null!");
 	    if(StringUtils.isBlank(key)) throw new IllegalArgumentException("key must not null!");
@@ -129,6 +136,7 @@ public class RedisUtil {
 	    LOGGER.debug("RedisUtil:delete cache key={}", prefix + KEY_SPLIT + key);
 	}
 	 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void delete(String key) {
 	    if(StringUtils.isBlank(key)) throw new IllegalArgumentException("key must not null!");
 	 

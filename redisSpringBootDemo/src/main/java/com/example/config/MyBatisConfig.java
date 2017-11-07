@@ -45,7 +45,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer{
 
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("cn.mrdear.entity");
+        //bean.setTypeAliasesPackage("cn.mrdear.entity");
 
         //分页插件,插件无非是设置mybatis的拦截器
         PageHelper pageHelper = new PageHelper();
