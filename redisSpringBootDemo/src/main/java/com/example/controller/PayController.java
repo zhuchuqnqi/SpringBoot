@@ -20,7 +20,9 @@ public class PayController {
 
 		if (payService.checkLimited(payInfo)) {
 
+
 			resultMsg = "可正常支付!!!";
+
 
 		} else {
 			resultMsg = "当日交易金额已超出限额，交易失败！！！";
