@@ -55,4 +55,8 @@ public class MarchantService {
 	public List<MarchantInfo> queryMarchantInfoByMarchName(String marchName) {
 		return marchantDao.queryMarchantInfoByMarchName(marchName);
 	}
+	
+	public List<MarchantInfo> queryAllMarchInfo(){
+		return marchantDao.queryAllMarchInfo();
+	}
 }

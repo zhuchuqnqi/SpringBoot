@@ -81,5 +81,9 @@ public class MarchantDao {
 	public List<MarchantInfo> queryMarchantInfoByMarchName(String marchName) {
 		return marchantMapper.queryMarchantInfoByMarchName(marchName);
 	}
+	
+	public List<MarchantInfo> queryAllMarchInfo(){
+		return marchantMapper.selectAll();
+	}
 
 }
