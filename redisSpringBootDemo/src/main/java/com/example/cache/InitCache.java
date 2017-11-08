@@ -22,12 +22,16 @@ public class InitCache implements ApplicationListener<ContextRefreshedEvent> {
 	@Resource
 	private MarchantService marchantService;
 	
+	/**
+	 * 容器加载完成后执行此方法
+	 */
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		init();
 	}
 	
 	public void init(){
+		//从DB获取商户限额信息并缓存到Redis
 		List<MarchantInfo> marchList = marchantService.queryAllMarchInfo();
 		
 		if(!marchList.isEmpty()){
