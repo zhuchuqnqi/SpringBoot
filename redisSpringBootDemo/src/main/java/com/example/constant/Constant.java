@@ -10,8 +10,8 @@ public class Constant {
 	public static final String MARCH_LIMITED_PREFIX="marchDayLimited";
 	
 	/**
-	 * 商户 日累计限额前缀
+	 * 商户 日累计交易金额
 	 */
-	public static final String MARCH_DAY_SUM_LIMITED_PREFIX="marchDaySumLimited";
+	public static final String MARCH_DAY_SUM_PAY_AMOUNT_PREFIX="marchDaySumTranAmount";
 	
 }

@@ -19,42 +19,35 @@ public class PayService {
 
 	public boolean checkLimited(PayInfo payInfo) {
 
-		String sumLimitAmount = redisUtil.get(
-				Constant.MARCH_DAY_SUM_LIMITED_PREFIX, payInfo.getTranDate()
+		// 获取商户当日累计交易金额
+		String sumDayPayAmount = redisUtil.get(
+				Constant.MARCH_DAY_SUM_PAY_AMOUNT_PREFIX, payInfo.getTranDate()
 						+ ":" + payInfo.getMarchCode());
 
-		String marchLimited = redisUtil.get(Constant.MARCH_LIMITED_PREFIX,
+		// 获取商户日交易限额
+		String marchDayLimited = redisUtil.get(Constant.MARCH_LIMITED_PREFIX,
 				payInfo.getMarchCode());
 
-		BigDecimal dayMarchLimited = new BigDecimal(marchLimited);
+		BigDecimal dayMarchLimited = new BigDecimal(marchDayLimited);
 
-		// 非当日第一次支付
-		if (StringUtils.isNotBlank(sumLimitAmount)) {
-			BigDecimal daySumLimitAmount = new BigDecimal(sumLimitAmount);
+		BigDecimal daySumPayAm = new BigDecimal("0");
+		// 非当日第一次交易
+		if (StringUtils.isNotBlank(sumDayPayAmount)) {
+			daySumPayAm = new BigDecimal(sumDayPayAmount);
 
-			// 原有限额加上本次支付金额
-			BigDecimal sunLimt = daySumLimitAmount.add(payInfo.getPayAmount());
-
-			// 超出商户日累计限额
-			if (sunLimt.compareTo(dayMarchLimited) > 0) {
-				return false;
-			}
-
-			// 更新商户当日累计交易金额
-			redisUtil.set(Constant.MARCH_DAY_SUM_LIMITED_PREFIX,
-					payInfo.getTranDate() + ":" + payInfo.getMarchCode(),
-					String.valueOf(sunLimt));
-
-		} else {
-			if (payInfo.getPayAmount().compareTo(dayMarchLimited) > 0) {
-				return false;
-			}
-			
-			// 将本次交易金额缓存到Redis
-			redisUtil.set(Constant.MARCH_DAY_SUM_LIMITED_PREFIX,
-					payInfo.getTranDate() + ":" + payInfo.getMarchCode(),
-					String.valueOf(payInfo.getPayAmount()));
 		}
+		// 原有累计交易金额加上本次支付金额
+		BigDecimal sumPay = daySumPayAm.add(payInfo.getPayAmount());
+
+		// 超出商户日交易限额
+		if (sumPay.compareTo(dayMarchLimited) > 0) {
+			return false;
+		}
+
+		// 更新商户当日累计交易金额
+		redisUtil.set(Constant.MARCH_DAY_SUM_PAY_AMOUNT_PREFIX,
+				payInfo.getTranDate() + ":" + payInfo.getMarchCode(),
+				String.valueOf(sumPay));
 
 		return true;
 
