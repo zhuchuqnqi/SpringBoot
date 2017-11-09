@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.ShardedJedisPool;
 
 /**
  * ShardedJedis 不能用于Redis集群，要用JedisCluster 代替ShardedJedis
