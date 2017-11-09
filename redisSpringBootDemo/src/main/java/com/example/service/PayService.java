@@ -31,7 +31,7 @@ public class PayService {
 		BigDecimal dayMarchLimited = new BigDecimal(marchDayLimited);
 
 		BigDecimal daySumPayAm = new BigDecimal("0");
-		// 非当日第一次交易
+		
 		if (StringUtils.isNotBlank(sumDayPayAmount)) {
 			daySumPayAm = new BigDecimal(sumDayPayAmount);
 
@@ -45,9 +45,9 @@ public class PayService {
 		}
 
 		// 更新商户当日累计交易金额
-		redisUtil.set(Constant.MARCH_DAY_SUM_PAY_AMOUNT_PREFIX,
+		redisUtil.setWithExpireTime(Constant.MARCH_DAY_SUM_PAY_AMOUNT_PREFIX,
 				payInfo.getTranDate() + ":" + payInfo.getMarchCode(),
-				String.valueOf(sumPay));
+				String.valueOf(sumPay),24*60*60);
 
 		return true;
 

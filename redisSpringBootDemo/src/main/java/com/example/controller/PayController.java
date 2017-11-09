@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.constant.Constant;
 import com.example.model.PayInfo;
 import com.example.service.PayService;
 
@@ -19,13 +20,13 @@ public class PayController {
 		String resultMsg = "";
 
 		if (payService.checkLimited(payInfo)) {
-
-
-			resultMsg = "可正常支付!!!";
-
-
+			
+			resultMsg = Constant.PAY_SUCCESS_MSG;
+			
 		} else {
-			resultMsg = "当日交易金额已超出限额，交易失败！！！";
+			
+			resultMsg = Constant.PAY_FAILED_LIMITED_MSG;
+			
 		}
 
 		return resultMsg;

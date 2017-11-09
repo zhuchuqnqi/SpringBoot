@@ -31,6 +31,7 @@ public class MarchantController {
 	
 	@RequestMapping("/updateMarchantInfo")
 	public String updateMarchantInfo(MarchantInfo marchantInfo) {
+		
 		if (marchantService.updateMarchantInfo(marchantInfo)) {
 			return "更新成功！！！";
 		}
@@ -45,7 +46,5 @@ public class MarchantController {
 		}
 		return "删除失败！！！";
 	}
-	
-	
 
 }
