@@ -1,4 +1,4 @@
-package com.example.cache;
+package com.example.event;
 
 import org.springframework.context.ApplicationEvent;
 

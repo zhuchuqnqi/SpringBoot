@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.cache.MyEvent;
+import com.example.event.MyEvent;
 
 @RequestMapping("/MyEvent")
 public class MyEventController implements ApplicationContextAware {
