@@ -34,6 +34,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+
 		</dependency>
 
 		<dependency>
@@ -83,14 +84,20 @@
 			<artifactId>tomcat-juli</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>5.0.0.Alpha1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
